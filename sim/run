@@ -1,0 +1,18 @@
+# Kill any session left over from a previous failed load
+catch {quit -sim}
+
+# Wipe and recreate the library so nothing stale is reused
+if {[file exists work]} { vdel -lib work -all }
+vlib work
+vmap work work
+
+vlog -sv "+incdir+C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM" \
+    "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/Testbench.sv"
+
+vopt +acc testbench -o testbench_opt
+vsim -permit_unmatched_virtual_intf testbench_opt
+
+# Wave setup (see the path fix below)
+add wave -position end sim:/testbench/vif/*
+
+run -all
