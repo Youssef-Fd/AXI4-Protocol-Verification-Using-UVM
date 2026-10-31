@@ -17,6 +17,27 @@
 
     endclass
 
+    class sequence_0 extends axi_sequence;
+
+        `uvm_object_utils(sequence_0)
+
+        function new(string name = "sequence_0");
+            super.new(name);
+        endfunction
+
+        task body();
+            axi_seq_item transaction;
+            repeat(200) begin
+                `uvm_info("SEQUENCE 0 START","", UVM_HIGH)
+                transaction = axi_seq_item::type_id::create("transaction");
+                start_item(transaction);
+                transaction.randomize() with { reset == 1'b1 ;};
+                finish_item(transaction);
+            end
+        endtask
+
+    endclass
+
 
     //verification of incremental burst with equal length of write and read transaction 
     class sequence_1 extends axi_sequence;
