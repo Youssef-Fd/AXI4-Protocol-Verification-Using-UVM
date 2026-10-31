@@ -6,6 +6,8 @@ import uvm_pkg::*;
 `include "uvm_macros.svh"
 
 `include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_if.sv"
+`include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_seq_item.sv"
+`include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_subscriber.sv"
 `include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_test.sv"
 `include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_write_master.sv"
 `include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_read_master.sv"
