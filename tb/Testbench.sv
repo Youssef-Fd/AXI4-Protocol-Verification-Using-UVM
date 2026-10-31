@@ -213,9 +213,9 @@ module testbench();
     $dumpvars;
 
     uvm_config_db#(virtual axi_if)::set(null, "*agent*", "vif", vif);
-    uvm_config_db#(virtual axi_if)::set(null, "test_case_2.env.agent*", "vif", vif);
+	  uvm_config_db#(virtual axi_if)::set(null, "test_case_0.env.agent*", "vif", vif);
 
-    run_test("test_case_2");
+	  run_test("test_case_0");
 
   end
 
