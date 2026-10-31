@@ -4,11 +4,11 @@ A SystemVerilog-based verification project focused on verifying the **AMBA AXI4 
 
 ## Overview
 
-The Advanced eXtensible Interface 4 (AXI4) is part of the AMBA protocol family developed by Arm. It is widely used in System-on-Chip (SoC) architectures to enable high-performance communication between different hardware components.
+The Advanced eXtensible Interface 4 (AXI4) is part of the AMBA protocol family developed by Arm. It is widely used in System-on-Chip (SoC) architectures to enable high-performance communication between hardware components.
 
-This project focuses on developing a structured UVM-based verification environment to simulate and analyze AXI4 protocol behavior.
+This project focuses on developing a UVM-based verification environment to simulate and analyze AXI4 protocol behavior.
 
-The main objective is to explore the principles of functional verification, understand UVM testbench architecture, and evaluate protocol behavior through simulation, waveform analysis, and coverage reporting.
+The main objective is to explore functional verification principles, understand UVM testbench architecture, and evaluate protocol behavior through simulation, waveform analysis, and coverage reporting.
 
 ## Project Objectives
 
@@ -25,17 +25,14 @@ The main objective is to explore the principles of functional verification, unde
 AXI4-Protocol-Verification-Using-UVM/
 │
 ├── rtl/                  # RTL design files
-│
 ├── tb/                   # Testbench files and interfaces
-│
 ├── uvm/                  # UVM verification components
+├── sim/                  # Simulation files and scripts
 │
-├── sim/                  # Simulation-related files and scripts
-│
-├── coverage_report.png   # Coverage report screenshot
-├── test_waveform.png     # Simulation waveform screenshot
+├── test_waveform.png     # Simulation waveform
 ├── uvm_output.png        # UVM simulation output
-├── uvm_report.png        # UVM report screenshot
+├── uvm_report.png        # UVM report
+├── coverage_report.png   # Coverage report
 │
 └── README.md
 ```
@@ -45,29 +42,12 @@ AXI4-Protocol-Verification-Using-UVM/
 | Technology | Purpose |
 |---|---|
 | SystemVerilog | Hardware description and verification |
-| UVM | Structured, reusable verification environment |
-| AXI4 | Communication protocol under verification |
+| UVM | Structured verification environment |
+| AXI4 | Communication protocol |
 | QuestaSim | HDL simulation and debugging |
-| Functional Coverage | Verification progress analysis |
-| Waveform Analysis | Signal-level simulation inspection |
+| Functional Coverage | Verification coverage analysis |
 
-## UVM Verification Architecture
-
-The project is organized around the UVM methodology, which provides a reusable and modular approach to hardware verification.
-
-The main concepts involved include:
-
-- **Sequence Items:** Represent transactions exchanged through the verification environment.
-- **Sequences:** Generate verification stimulus.
-- **Sequencer:** Controls the flow of transactions.
-- **Driver:** Converts transactions into interface-level signal activity.
-- **Monitor:** Observes interface activity and collects transaction information.
-- **Agent:** Groups the components responsible for interacting with an interface.
-- **Environment:** Organizes and connects verification components.
-- **Scoreboard:** Supports checking and comparing expected and observed behavior.
-- **Tests:** Configure and execute verification scenarios.
-
-## AXI4 Protocol
+## AXI4 Protocol Overview
 
 AXI4 uses five independent communication channels:
 
@@ -79,66 +59,69 @@ AXI4 uses five independent communication channels:
 | AR | Read Address |
 | R | Read Data |
 
-Communication relies on the VALID/READY handshake mechanism, allowing the communicating components to control when information is transferred.
+Communication relies on the VALID/READY handshake mechanism, allowing independent control of transaction transfers between communicating components.
 
-Understanding these channels and their interactions is essential when developing an AXI4 verification environment.
+## UVM Verification Architecture
 
-## Simulation and Results
+The verification environment follows the UVM methodology, which provides a modular and reusable approach to hardware verification.
 
-The repository includes simulation-related files and screenshots documenting the verification process.
+The main UVM concepts include:
 
-### Simulation Waveform
+- **Sequence Items:** Represent transactions.
+- **Sequences:** Generate verification stimulus.
+- **Sequencer:** Controls transaction flow.
+- **Driver:** Converts transactions into interface-level signals.
+- **Monitor:** Observes interface activity.
+- **Agent:** Groups verification components.
+- **Environment:** Organizes and connects verification components.
+- **Scoreboard:** Checks expected versus observed behavior.
+- **Tests:** Configure and execute verification scenarios.
 
-![Test Waveform](test_waveform.png)
+## Simulation Results
 
-### UVM Simulation Output
+The following screenshots illustrate the simulation and verification results obtained using QuestaSim.
 
-![UVM Output](uvm_output.png)
+### 1. Simulation Waveform
 
-### UVM Report
+The waveform provides a signal-level view of the simulation, allowing inspection of AXI4 signals and their timing behavior.
 
-![UVM Report](uvm_report.png)
+<p align="center">
+  <img src="test_waveform.png" alt="AXI4 Simulation Waveform" width="900">
+</p>
 
-### Coverage Report
+### 2. UVM Simulation Output
 
-![Coverage Report](coverage_report.png)
+The simulation output displays the UVM messages generated during test execution.
 
-These results provide visual evidence of simulation activity and the generated verification reports.
+<p align="center">
+  <img src="uvm_output.png" alt="UVM Simulation Output" width="900">
+</p>
+
+### 3. UVM Verification Report
+
+The UVM report provides information about the simulation execution and verification messages.
+
+<p align="center">
+  <img src="uvm_report.png" alt="UVM Verification Report" width="900">
+</p>
+
+### 4. Functional Coverage Report
+
+The coverage report provides a visual overview of the collected verification coverage.
+
+<p align="center">
+  <img src="coverage_report.png" alt="Functional Coverage Report" width="900">
+</p>
 
 ## Getting Started
 
 ### Prerequisites
 
-To explore and run this project, you need:
-
 - QuestaSim or another simulator supporting SystemVerilog and UVM.
 - SystemVerilog language support.
 - An available UVM library compatible with your simulator.
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/Youssef-Fd/AXI4-Protocol-Verification-Using-UVM.git
-```
-
-```bash
-cd AXI4-Protocol-Verification-Using-UVM
-```
-
-### Run the Simulation
-
-1. Open QuestaSim.
-2. Navigate to the project directory.
-3. Inspect the files inside the `sim/` directory.
-4. Use the provided simulation script or file list to compile the RTL and verification environment.
-5. Run the simulation.
-6. Inspect the waveforms and generated reports.
-
-*Note: The exact compilation and execution commands depend on the simulation scripts and file lists included in the project.*
-
 ## Learning Outcomes
-
-Through this project, the following concepts are explored:
 
 - AXI4 protocol fundamentals.
 - SystemVerilog-based verification.
@@ -147,4 +130,3 @@ Through this project, the following concepts are explored:
 - Modular and reusable verification components.
 - Simulation debugging and waveform analysis.
 - Functional coverage and verification reporting.
-
