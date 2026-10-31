@@ -25,7 +25,7 @@ The main objective is to explore functional verification principles, understand 
 AXI4-Protocol-Verification-Using-UVM/
 │
 ├── rtl/                  # RTL design files
-├── tb/                   # Testbench files and interfaces
+├── tb/                   # Testbench file
 ├── uvm/                  # UVM verification components
 ├── sim/                  # Simulation files and scripts
 │
