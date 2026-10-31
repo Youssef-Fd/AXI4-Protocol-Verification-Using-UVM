@@ -25,6 +25,34 @@
     endclass
 
     //===================================================//
+    //                TEST CASE 0                        //
+    //===================================================//
+    class test_case_0 extends axi_test;
+
+        `uvm_component_utils(test_case_0)
+
+        function new(string name="test_case_0", uvm_component parent=null);
+            super.new(name,parent);
+        endfunction
+
+        function void build_phase(uvm_phase phase);
+            super.build_phase(phase);
+        endfunction
+
+        task run_phase(uvm_phase phase);
+
+            sequence_0 seq;
+            phase.raise_objection(this);
+            seq = sequence_0::type_id::create("seq",this);
+            seq.start(env.agent.sequencer);
+          #100;
+            phase.drop_objection(this);
+            
+        endtask
+
+    endclass
+
+    //===================================================//
     //                TEST CASE 1                        //
     //===================================================//
     class test_case_1 extends axi_test;
