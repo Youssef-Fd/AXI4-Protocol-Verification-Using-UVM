@@ -48,7 +48,6 @@
             bins high = {[256:1023]};
         }
 
-        // Burst would cross a 4 KB boundary (illegal in AXI)
         cp_4k_cross: coverpoint ((trans.AWADDR[11:0] + ((trans.AWLEN + 1) << trans.AWSIZE)) > 13'h1000) {
             bins no_cross = {0};
             ignore_bins  cross_4k = {1};
@@ -144,17 +143,13 @@
             read_cg  = new();
         endfunction
 
-        // Called by the monitor's analysis port for every collected transaction
         function void write(axi_seq_item t);
             trans = t;
-            // The monitor sets write_en=1 on write items, read items leave it 0
             is_write = t.write_en;
-
             if (is_write) 
                 write_cg.sample();
             else          
                 read_cg.sample();
-
         endfunction
 
         function void report_phase(uvm_phase phase);
