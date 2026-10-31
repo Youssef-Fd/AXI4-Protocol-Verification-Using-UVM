@@ -3,6 +3,7 @@
 
     `include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_scoreboard.sv"
     `include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_agent.sv"
+    `include "C:/Users/Lenovo/Documents/QuestaSim_AXI4_UVM/axi_subscriber.sv"
 
     class axi_env extends uvm_test;
         
