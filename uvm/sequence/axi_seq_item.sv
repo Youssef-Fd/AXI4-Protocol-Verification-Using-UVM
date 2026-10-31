@@ -80,13 +80,39 @@
         rand bit                       RVALID;
         bit                            RREADY;
 
-        constraint burst_c{soft AWBURST == 1 && ARBURST == 1;}
-        constraint length_c{soft AWLEN == 9 && ARLEN == 9;}
-        constraint strobe_c{soft WSTRB == 4'b1111;}
-        constraint size_c{soft AWSIZE == 2 && ARSIZE == 2;}
-        constraint valid_c{soft AWVALID == 1 && WVALID == 1 && ARVALID == 1;}
-        constraint ready_c{soft BREADY == 1 && RREADY == 1;}
-        constraint addr_c{ soft AWADDR[0] inside {[100:200]};}
+        constraint c_mode { write_en || read_en; }
+
+        constraint c_wlen {
+            WRITE_BURST_LEN dist {
+                1        := 15,
+                [2:4]    :/ 20,
+                [5:16]   :/ 25,
+                [17:64]  :/ 25,
+                [65:255] :/ 15
+            };
+        }
+        constraint c_rlen {
+            READ_BURST_LEN dist {
+                1        := 15,
+                [2:4]    :/ 20,
+                [5:16]   :/ 25,
+                [17:64]  :/ 25,
+                [65:255] :/ 15
+            };
+        }
+
+        constraint c_waddr {
+            WRITE_ADDR < 4096;
+            WRITE_ADDR[1:0]  dist {2'b00 := 50, [1:3] :/ 50};
+            WRITE_ADDR[11:2] dist {[0:255] :/ 50, [256:1023] :/ 50};
+            (32'(WRITE_ADDR[11:0]) + (32'(WRITE_BURST_LEN) << 2)) <= 4096;
+        }
+        constraint c_raddr {
+            READ_ADDR < 4096;
+            READ_ADDR[1:0]  dist {2'b00 := 50, [1:3] :/ 50};
+            READ_ADDR[11:2] dist {[0:255] :/ 50, [256:1023] :/ 50};
+            (32'(READ_ADDR[11:0]) + (32'(READ_BURST_LEN) << 2)) <= 4096;
+        }
 
 
         `uvm_object_utils_begin(axi_seq_item)
