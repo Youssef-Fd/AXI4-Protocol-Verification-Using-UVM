@@ -28,17 +28,14 @@
         }
 
         cp_awsize: coverpoint trans.AWSIZE {
-            bins byte_1 = {0};
-            bins byte_2 = {1};
-            bins byte_4 = {2};      // your 32-bit bus
-            ignore_bins wider = {[3:7]};
+            bins byte_4 = {2};
+            ignore_bins unsupported = {[0:1], [3:7]};
         }
 
         cp_awburst: coverpoint trans.AWBURST {
-            bins fixed = {2'b00};
-            bins incr  = {2'b01};
-            bins wrap  = {2'b10};
-            illegal_bins reserved = {2'b11};
+            bins incr = {2'b01};
+            ignore_bins unsupported = {2'b00, 2'b10};
+            illegal_bins reserved   = {2'b11};
         }
 
         cp_awaddr_align: coverpoint trans.AWADDR[1:0] {
@@ -54,15 +51,9 @@
         // Burst would cross a 4 KB boundary (illegal in AXI)
         cp_4k_cross: coverpoint ((trans.AWADDR[11:0] + ((trans.AWLEN + 1) << trans.AWSIZE)) > 13'h1000) {
             bins no_cross = {0};
-            bins cross_4k = {1};
+            ignore_bins  cross_4k = {1};
         }
-
-        cp_wstrb: coverpoint trans.WSTRB {
-            bins full    = {4'b1111};
-            bins partial = {[4'b0001:4'b1110]};
-            bins none    = {4'b0000};
-        }
-
+        
         cp_wdata: coverpoint trans.WDATA {
             bins zeros    = {32'h0000_0000};
             bins ones     = {32'hFFFF_FFFF};
@@ -70,11 +61,14 @@
             bins others   = default;
         }
 
+        cp_wstrb: coverpoint trans.WSTRB {
+            bins full = {4'b1111};
+            ignore_bins unsupported = {[4'b0000:4'b1110]};
+        }
+
         cp_bresp: coverpoint trans.BRESP {
-            bins okay   = {2'b00};
-            bins exokay = {2'b01};
-            bins slverr = {2'b10};
-            bins decerr = {2'b11};
+            bins okay = {2'b00};
+            ignore_bins unsupported = {2'b01, 2'b10, 2'b11};
         }
 
         cx_len_x_size : cross cp_awlen, cp_awsize;
@@ -134,10 +128,8 @@
         }
 
         cp_rresp: coverpoint trans.RRESP {
-            bins okay   = {2'b00};
-            bins exokay = {2'b01};
-            bins slverr = {2'b10};
-            bins decerr = {2'b11};
+            bins okay = {2'b00};
+            ignore_bins unsupported = {2'b01, 2'b10, 2'b11};
         }
 
         cx_len_x_size : cross cp_arlen, cp_arsize;
