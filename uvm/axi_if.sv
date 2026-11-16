@@ -80,11 +80,9 @@
 
     clocking driver_cb @(posedge clk);
 
-      // Commands from the UVM driver to the masters
       output write_en, WRITE_ADDR, WRITE_BURST_LEN;
       output read_en,  READ_ADDR,  READ_BURST_LEN;
-
-      // Everything else is observed only
+		
       input done_writing, write_err, done_reading, read_err;
       input AWREADY, ARREADY, WREADY, BRESP, BVALID;
       input RDATA, RRESP, RLAST, RVALID;
@@ -95,8 +93,6 @@
     modport driver_mp(clocking driver_cb,input clk,reset);
 
     clocking monitor_cb@(posedge clk);
-
-      //default input #9;
        
       //WRITE ADDRESS BUS
       input write_en, AWREADY;
