@@ -78,39 +78,6 @@
       logic                       RVALID;
       logic                       RREADY;
 
-
-    // clocking driver_cb@(posedge clk);
-       
-    //   //WRITE ADDRESS BUS
-    //   input WRITE_ADDR, WRITE_BURST_LEN, write_en, AWREADY;
-    //   output done_writing, write_err, AWADDR,AWLEN,AWSIZE,AWBURST,AWVALID;
-      
-    //   //FIFO READ INTERFACE
-    //   input FIFO_EMPTY,FIFO_RDATA;
-    //   output FIFO_RD_EN; 
-
-    //   //WRITE DATA BUS
-    //   input WREADY;
-    //   output WDATA,WSTRB,WLAST,WVALID;
-      
-    //   //WRITE RESPONSE BUS
-    //   input BRESP,BVALID;
-    //   output BREADY;
-      
-    //   //FIFO WRITE INTERFACE
-    //   input FIFO_FULL;
-    //   output FIFO_WR_EN, FIFO_WDATA; 
-
-    //   //READ ADDRESS BUS
-    //   input  READ_ADDR, READ_BURST_LEN, read_en, ARREADY;
-    //   output done_reading, read_err, ARADDR,ARLEN,ARSIZE,ARBURST,ARVALID;
-       
-    //   //READ DATA BUS
-    //   input RDATA,RRESP,RLAST,RVALID;
-    //   output RREADY;
-
-    // endclocking
-
     clocking driver_cb @(posedge clk);
 
       // Commands from the UVM driver to the masters
